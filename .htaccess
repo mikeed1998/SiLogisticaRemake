@@ -14,6 +14,31 @@ RewriteRule ^Nosotros$                          index.php?identificador=2&pagina
 RewriteRule ^Contacto$                          index.php?identificador=3&pagina=contacto
 RewriteRule ^Tienda$                            index.php?identificador=4&pagina=tienda
 RewriteRule ^Producto_([a-zA-Z0-9]+)$           index.php?identificador=5&pagina=detalle
+RewriteRule ^Servicios$                         index.php?identificador=6&pagina=servicios
+RewriteRule ^Servicio_([0-9]+)$                 index.php?identificador=7&pagina=servicio&id=$1 [L]
+RewriteRule ^editarajax$                        index.php?identificador=99
+RewriteRule ^Proxy$                             index.php?identificador=100
+RewriteRule ^EditarAJAX$                        index.php?identificador=101
+
+RewriteRule ^Login$                             index.php?identificador=50
+RewriteRule ^SignUp$                            index.php?identificador=51
+RewriteRule ^Logout$                            index.php?identificador=52
+RewriteRule ^Dashboard$                         index.php?identificador=53
+
+RewriteRule ^admin$                             index.php?identificador=200 [L]
+RewriteRule ^adminlogin$                        index.php?identificador=201 [L]
+RewriteRule ^adminlogout$                       index.php?identificador=202
+RewriteRule ^checkadmin$                        index.php?identificador=203
+RewriteRule ^admin_configuracion$               index.php?identificador=204
+RewriteRule ^admin_politicas$                   index.php?identificador=205
+RewriteRule ^admin_faqs$                        index.php?identificador=206
+RewriteRule ^admin_home$                        index.php?identificador=207
+RewriteRule ^admin_nosotros$                    index.php?identificador=208
+RewriteRule ^admin_contacto$                    index.php?identificador=209
+RewriteRule ^admin_servicios$                   index.php?identificador=210
+RewriteRule ^admin_sliders$                     index.php?identificador=211
+RewriteRule ^admin_empresas$                    index.php?identificador=212
+RewriteRule ^admin_logic$                       index.php?identificador=213
 
 # Permitir archivos .htaccess en subdirectorios
 Options +FollowSymLinks

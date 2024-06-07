@@ -1,3 +1,0 @@
-# Ignorar archivos y directorios relacionados con Tailwind CSS
-/node_modules/
-/public/css/output.css

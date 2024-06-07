@@ -1,0 +1,46 @@
+
+    .fa-bars { color: #FFFFFF; }
+    .fa-bars:hover { color: #639BE8; }
+
+    @media(min-width: 992px) { 
+        .linea-superior { border-top: 3px solid #639BE8; }
+    }
+
+
+    @media(min-width: 576px) { 
+        .bar-grande { display: block; }
+        .bar-chica { display: none; }
+        .inicio-grande { display: block; }
+        .inicio-chico { display: none; }
+        .linea-superior_servicios { border-top: 3px solid #639BE8; }
+    }
+
+    @media(min-width: 576px) and (max-width: 992px) {
+        .linea-superior { border: none; }
+    }
+
+    @media(min-width: 0px) and (max-width: 576px) {
+        .bar-grande { display: none; }
+        .bar-chica { display: block; }
+        .inicio-grande { display: none; }
+        .inicio-chico { display: block; }
+        .linea-superior_servicios { border-top: none; }
+    }
+
+    .accordion-content {
+        display: none;
+    }
+
+    .accordion-content.show {
+        display: block;
+    }
+
+    .link-header {
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    .link-header:hover {
+        color: #639BE8;
+    }
+

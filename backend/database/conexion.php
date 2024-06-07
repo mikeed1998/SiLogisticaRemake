@@ -3,7 +3,7 @@
     $host = 'localhost';
     $user = 'root';
     $password = '';
-    $database = 'sdk_moderno';
+    $database = 'db_silogistica';
 
     try {
         // Cadena DSN (Data Source Name)

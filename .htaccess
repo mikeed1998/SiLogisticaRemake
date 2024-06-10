@@ -36,9 +36,11 @@ RewriteRule ^admin_home$                        index.php?identificador=207
 RewriteRule ^admin_nosotros$                    index.php?identificador=208
 RewriteRule ^admin_contacto$                    index.php?identificador=209
 RewriteRule ^admin_servicios$                   index.php?identificador=210
-RewriteRule ^admin_sliders$                     index.php?identificador=211
-RewriteRule ^admin_empresas$                    index.php?identificador=212
-RewriteRule ^admin_logic$                       index.php?identificador=213
+RewriteRule ^admin_servicio_create$             index.php?identificador=211
+RewriteRule ^admin_servicio_edit_([0-9]+)$      index.php?identificador=212&pagina=admin_servicio&id=$1 [L]
+RewriteRule ^admin_sliders$                     index.php?identificador=213
+RewriteRule ^admin_empresas$                    index.php?identificador=214
+RewriteRule ^admin_logic$                       index.php?identificador=215
 
 # Permitir archivos .htaccess en subdirectorios
 Options +FollowSymLinks

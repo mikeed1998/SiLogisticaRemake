@@ -309,10 +309,12 @@
                                     height: 36rem;
                                     ">
                                     <div class="position-absolute top-50 start-50 translate-middle w-100">
-                                        <form id="form_img_perfil2" action="" method="POST" class="file-upload" enctype="multipart/form-data">
-                                            @csrf
+                                        <form id="form_img_perfil2" action="admin_logic" method="POST" class="file-upload" enctype="multipart/form-data">
+                                            
                                             <input type="hidden" name="id_imagen" value="<?=$elementos[3]['id']?>">
-                                            <input type="hidden" name="tipo_imagen" value="contacto_home">
+                                            <input type="hidden" name="tipo_imagen" value="formulario_imagen">
+                                            <input type="hidden" name="tipo_form_imagen" value="imagen">
+                                            <input type="hidden" name="form_redirect" value="home">
                                             <input id="img_perfil2" class="m-0 p-0" type="file" name="archivo">
                                             <label class="col-12 m-0 px-2 d-flex justify-content-center align-items-center" for="img_perfil2" style=" height: 100%; opacity: 100%; border-radius: 20px;">Actualizar Imagen</label>
                                         </form>
@@ -552,10 +554,12 @@
                                             background-image: url('public/img/photos/imagenes_estaticas/<?=$elementos[5]['imagen']?>');
                                         ">
                                             <div class="position-absolute top-50 start-50 translate-middle w-100">
-                                                <form id="form_img_perfil" action="{{ route('ajax.cambiar_imagen') }}" method="POST" class="file-upload" enctype="multipart/form-data">
-                                                    @csrf
+                                                <form id="form_img_perfil" action="admin_logic" method="POST" class="file-upload" enctype="multipart/form-data">
+                                                    
                                                     <input type="hidden" name="id_imagen" value="<?=$elementos[5]['id']?>">
-                                                    <input type="hidden" name="tipo_imagen" value="contacto_home">
+                                                    <input type="hidden" name="tipo_imagen" value="formulario_imagen">
+                                                    <input type="hidden" name="tipo_form_imagen" value="imagen">
+                                                    <input type="hidden" name="form_redirect" value="home">
                                                     <input id="img_perfil" class="m-0 p-0" type="file" name="archivo">
                                                     <label class="col-12 m-0 px-2 d-flex justify-content-center align-items-center" for="img_perfil" style=" height: 100%; opacity: 100%; border-radius: 20px;">Actualizar Imagen</label>
                                                 </form>

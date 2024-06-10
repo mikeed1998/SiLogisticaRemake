@@ -121,13 +121,35 @@
         break;
         case 211:
             include 'frontend/admin/layout.php';
-            include 'frontend/admin/sliders.php';
+            include 'frontend/admin/servicios/create.php';
         break;
         case 212:
             include 'frontend/admin/layout.php';
-            include 'frontend/admin/empresas.php';
+            try {
+                $query = "SELECT * FROM servicios WHERE id = :id";
+                $stmt = $conexion->prepare($query);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    $servicio = $stmt->fetch(PDO::FETCH_ASSOC);
+                    include 'frontend/admin/servicios/edit.php';
+                } else {
+                    echo "<p>Servicio no encontrado.</p>";
+                }
+            } catch (PDOException $e) {
+                echo 'Error en la consulta: ' . $e->getMessage();
+            }
         break;
         case 213:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/sliders.php';
+        break;
+        case 214:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/empresas.php';
+        break;
+        case 215:
             include 'backend/logic/logica.php';
         break;
         default:

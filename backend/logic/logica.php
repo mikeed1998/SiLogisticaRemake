@@ -257,3 +257,153 @@
             }
         }
     } 
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_sliders']) && $_POST['form_sliders'] == 'crud_sliders') {
+        if($_POST['sliders_crud'] == 'create_slider') {
+            // var_dump('CREATE SLIDER');
+            $slider = $_FILES['imagen'];
+    
+            if (isset($slider) && $slider['error'] === UPLOAD_ERR_OK) {
+                $sliderTmpPath = $slider['tmp_name'];
+                $sliderName = $slider['name'];
+                $sliderSize = $slider['size'];
+                $sliderType = $slider['type'];
+                $sliderNameCmps = explode(".", $sliderName);
+                $sliderExtension = strtolower(end($sliderNameCmps));
+    
+                // Generar un nombre de archivo aleatorio
+                $newFileName = bin2hex(random_bytes(15)) . '.' . $sliderExtension;
+    
+                // Especificar el directorio donde se guardará el archivo
+                $uploadFileDir = 'public/img/photos/sliders/';
+                $dest_path = $uploadFileDir . $newFileName;
+    
+                try {
+                    // Mover el archivo al directorio especificado
+                    if (move_uploaded_file($sliderTmpPath, $dest_path)) {
+                        // Insertar el nuevo servicio en la base de datos
+                        $query = $conexion->prepare("INSERT INTO slider_principals (imagen) VALUES (:imagen)");
+                        $query->bindParam(':imagen', $newFileName, PDO::PARAM_STR);
+                        $query->execute();
+    
+                        // Redirigir con un mensaje de éxito
+                        echo '<script>alert("Imagen agregada exitosamente"); window.location.href="admin_sliders";</script>';
+                    } else {
+                        echo '<script>alert("Hubo un error al mover el archivo subido."); window.history.back();</script>';
+                    }
+                } catch (Exception $e) {
+                    echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
+                }
+            } else {
+                echo '<script>alert("No se subió ningún archivo o hubo un error en la subida."); window.history.back();</script>';
+            }
+        } else if($_POST['sliders_crud'] == 'delete_slider') {
+            // var_dump('DELETE SLIDER');
+            $id = intval($_POST['id_slider']);
+            
+            try {
+                $conexion->beginTransaction();
+    
+                $query = $conexion->prepare("SELECT imagen FROM slider_principals WHERE id = :id");
+                $query->bindParam(':id', $id, PDO::PARAM_INT);
+                $query->execute();
+                $slider = $query->fetch(PDO::FETCH_ASSOC);
+    
+                if ($slider) {
+                    $uploadFileDir = 'public/img/photos/sliders/';
+                    $filePath = $uploadFileDir . $slider['imagen'];
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+    
+                    $query = $conexion->prepare("DELETE FROM slider_principals WHERE id = :id");
+                    $query->bindParam(':id', $id, PDO::PARAM_INT);
+                    $query->execute();
+    
+                    $conexion->commit();
+    
+                    echo '<script>alert("slider eliminado exitosamente"); window.location.href="admin_sliders";</script>';
+                } else {
+                    throw new Exception("slider no encontrado");
+                }
+            } catch (Exception $e) {
+                $conexion->rollBack();
+                echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
+            }
+        }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_empresas']) && $_POST['form_empresas'] == 'crud_empresas') {
+        if($_POST['empresas_crud'] == 'create_empresa') {
+            // var_dump('CREATE SLIDER');
+            $empresa = $_FILES['imagen'];
+    
+            if (isset($empresa) && $empresa['error'] === UPLOAD_ERR_OK) {
+                $empresaTmpPath = $empresa['tmp_name'];
+                $empresaName = $empresa['name'];
+                $empresaSize = $empresa['size'];
+                $empresaType = $empresa['type'];
+                $empresaNameCmps = explode(".", $empresaName);
+                $empresaExtension = strtolower(end($empresaNameCmps));
+    
+                // Generar un nombre de archivo aleatorio
+                $newFileName = bin2hex(random_bytes(15)) . '.' . $empresaExtension;
+    
+                // Especificar el directorio donde se guardará el archivo
+                $uploadFileDir = 'public/img/photos/empresas/';
+                $dest_path = $uploadFileDir . $newFileName;
+    
+                try {
+                    // Mover el archivo al directorio especificado
+                    if (move_uploaded_file($empresaTmpPath, $dest_path)) {
+                        // Insertar el nuevo servicio en la base de datos
+                        $query = $conexion->prepare("INSERT INTO empresas (imagen) VALUES (:imagen)");
+                        $query->bindParam(':imagen', $newFileName, PDO::PARAM_STR);
+                        $query->execute();
+    
+                        // Redirigir con un mensaje de éxito
+                        echo '<script>alert("Imagen agregada exitosamente"); window.location.href="admin_empresas";</script>';
+                    } else {
+                        echo '<script>alert("Hubo un error al mover el archivo subido."); window.history.back();</script>';
+                    }
+                } catch (Exception $e) {
+                    echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
+                }
+            } else {
+                echo '<script>alert("No se subió ningún archivo o hubo un error en la subida."); window.history.back();</script>';
+            }
+        } else if($_POST['empresas_crud'] == 'delete_empresa') {
+            // var_dump('DELETE SLIDER');
+            $id = intval($_POST['id_slider']);
+            
+            try {
+                $conexion->beginTransaction();
+    
+                $query = $conexion->prepare("SELECT imagen FROM empresas WHERE id = :id");
+                $query->bindParam(':id', $id, PDO::PARAM_INT);
+                $query->execute();
+                $slider = $query->fetch(PDO::FETCH_ASSOC);
+    
+                if ($slider) {
+                    $uploadFileDir = 'public/img/photos/empresas/';
+                    $filePath = $uploadFileDir . $slider['imagen'];
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+    
+                    $query = $conexion->prepare("DELETE FROM empresas WHERE id = :id");
+                    $query->bindParam(':id', $id, PDO::PARAM_INT);
+                    $query->execute();
+    
+                    $conexion->commit();
+    
+                    echo '<script>alert("Empresa eliminado exitosamente"); window.location.href="admin_empresas";</script>';
+                } else {
+                    throw new Exception("Empresa no encontrado");
+                }
+            } catch (Exception $e) {
+                $conexion->rollBack();
+                echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
+            }
+        }
+    }

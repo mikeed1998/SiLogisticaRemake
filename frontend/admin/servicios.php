@@ -49,42 +49,6 @@
                                             <label for="switch_inicio-<?=$serv['id']?>" class="form-control-label fw-bolder py-2">Mostrar en inicio</label>
                                             <input class="form-check-input switch-color-inicio shadow-none fs-2" role="switch" id="switch_inicio-<?=$serv['id']?>" data-id="<?=$serv['id']?>" data-campo="inicio" type="checkbox" <?=($serv['inicio'] == 1) ? 'checked' : ''?>>
                                         </div>
-                                        <!-- <script>
-                                            $(document).ready(function() {
-                                                $('.form-check-input').change(function (e){
-                                                    var checkbox = $(this);
-                                                    var check = checkbox.prop('checked') ? 1 : 0;
-                                                    var id = checkbox.data('id');
-                                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                                                    var URL = "admin_logic";
-                                                    
-                                                    $.ajax({
-                                                        url: URL,
-                                                        type: 'POST',
-                                                        dataType: 'json',
-                                                        data: {
-                                                            form_servicios: 'crud_servicios',
-                                                            servicios_crud: 'toggle_inicio',
-                                                            id: id,
-                                                            valor: check
-                                                        },
-                                                        headers: {
-                                                            'X-CSRF-TOKEN': csrfToken
-                                                        }
-                                                    })
-                                                    .done(function(msg) {
-                                                        if (msg.success) {
-                                                            toastr["info"](msg.mensaje);
-                                                        } else {
-                                                            toastr["error"](msg.mensaje);
-                                                        }
-                                                    })
-                                                    .fail(function() {
-                                                        toastr["error"]('Error al cambiar el estado del servicio.');
-                                                    });
-                                                });
-                                            });
-                                        </script> -->
                                     </div>
                                 </div>
                             </div>

@@ -20,11 +20,11 @@
             border-top-right-radius: 1rem;
         }
 
-        .form-control::placeholder {
+        .f-control, .f-control:focus, .f-control::placeholder {
             color: #D0382A;
         }
 
-        .form-control {
+        .f-control {
             padding-left: 1.75rem; 
         }
 
@@ -103,28 +103,29 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-9 col-12 mx-auto ms-auto px-0">
-                                                <form action="" class="row">
+                                                <form id="contactForm" action="Mail" method="POST" class="row">
+                                                    <input type="hidden" name="tipo" value="contacto">
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control formi py-3 w-100 shadow" placeholder="NOMBRE">
+                                                        <input type="text" name="nombre" class="form-control f-control formi py-3 w-100 shadow" placeholder="NOMBRE">
                                                     </div>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control formi py-3 mt-4 w-100 shadow" placeholder="EMPRESA">
+                                                        <input type="text" name="empresa" class="form-control f-control formi py-3 mt-4 w-100 shadow" placeholder="EMPRESA">
                                                     </div>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control formi py-3 mt-4 w-100 shadow" placeholder="WHATSAPP">
+                                                        <input type="text" name="whatsapp" class="form-control f-control formi py-3 mt-4 w-100 shadow" placeholder="WHATSAPP">
                                                     </div>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control formi py-3 mt-4 w-100 shadow" placeholder="EMAIL">
+                                                        <input type="text" name="email" class="form-control f-control formi py-3 mt-4 w-100 shadow" placeholder="EMAIL">
                                                     </div>
                                                     <div class="col-12">
-                                                        <textarea name="" id="" cols="30" rows="4" class="form-control formi mt-4 shadow" placeholder="MENSAJE"></textarea>
+                                                        <textarea name="mensaje" id="" cols="30" rows="4" class="form-control f-control formi mt-4 shadow" placeholder="MENSAJE"></textarea>
                                                     </div>
                                                 </form>
                                                 <div class="row">
                                                     <div class="col-md-6 col-12">
                                                         <div class="row mt-4">
                                                             <div class="col-md-11 col-12">
-                                                                <input type="submit" class="btn btn-dark w-100 rounded-0 text-white" value="Enviar">
+                                                                <input type="submit" class="btn btn-dark w-100 rounded-0 text-white" value="Enviar" id="submitBtn">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -195,3 +196,21 @@
 
 <?=$footer;?>
 
+<script>
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        document.getElementById('contactForm').submit();
+    });
+</script>
+<script>
+    // Leer los parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    const message = urlParams.get('message');
+
+    // Mostrar notificación Toastr basada en los parámetros
+    if (status === 'success') {
+        toastr.success('El mensaje se envió correctamente.');
+    } else if (status === 'error') {
+        toastr.error('Hubo un error al enviar el mensaje: ' + decodeURIComponent(message));
+    }
+</script>

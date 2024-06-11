@@ -288,7 +288,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-9 col-12">
-                                            <a href="#/" class="btn py-3 fs-5 w-100 btn-azul">VER MÁS</a>
+                                            <a href="Nosotros" class="btn py-3 fs-5 w-100 btn-azul">VER MÁS</a>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
                                                                                     Ver más detalles 
                                                                                 </div>
                                                                                 <div class="col-lg-6 col-md-12 col-12 text-start">
-                                                                                    <img src="{{ asset("public/img/photos/home/flechita.png") }}" alt="" class="img-fluid">
+                                                                                    <img src="public/img/photos/home/flechita.png" alt="" class="img-fluid">
                                                                                 </div>
                                                                             </div>
                                                                         </a>
@@ -480,28 +480,29 @@
                                 <div class="col-md-6 col-12 px-0">
                                     <div class="row py-3">
                                         <style>
-                                            .form-control::placeholder {
+                                            .f-control, .f-control:focus, .f-control::placeholder {
                                                 color: #3567AC;
                                             }
 
-                                            .form-control {
+                                            .f-control {
                                                 padding-left: 1.75rem;
                                             }
                                         </style>
-                                        <form action="">
+                                        <form action="Mail" method="POST">
+                                            <input type="hidden" name="tipo" value="home">
                                             <div class="form-group row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control py-3 shadow-none " placeholder="WHATSAPP" required>
+                                                    <input type="text" name="whatsapp" class="form-control f-control py-3 shadow-none " placeholder="WHATSAPP" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row mt-4">
                                                 <div class="col">
-                                                    <input type="email" class="form-control py-3 shadow-none" placeholder="EMAIL" required>
+                                                    <input type="email" name="email" class="form-control f-control py-3 shadow-none" placeholder="EMAIL" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row mt-4">
                                                 <div class="col">
-                                                    <textarea name="" id="" cols="30" rows="4" class="form-control py-3" placeholder="MENSAJE" required></textarea>
+                                                    <textarea name="mensaje" id="" cols="30" rows="4" class="form-control f-control py-3" placeholder="MENSAJE" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row mt-2">
@@ -512,7 +513,7 @@
                                                                 Enviar Mensaje
                                                             </div>
                                                             <div class="col-md-3 col-3 text-start">
-                                                                <img src="{{ asset('public/img/photos/home/flechita_blanca.png') }}" alt="">
+                                                                <img src="public/img/photos/home/flechita_blanca.png" alt="">
                                                             </div>
                                                         </div>
                                                     </button>
@@ -623,6 +624,20 @@
             ]
         });
     </script>
+
+<script>
+    // Leer los parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    const message = urlParams.get('message');
+
+    // Mostrar notificación Toastr basada en los parámetros
+    if (status === 'success') {
+        toastr.success('El mensaje se envió correctamente.');
+    } else if (status === 'error') {
+        toastr.error('Hubo un error al enviar el mensaje: ' + decodeURIComponent(message));
+    }
+</script>
 
 <?=$footer;?>
 

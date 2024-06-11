@@ -44,7 +44,7 @@
                     }
     </style>
 
-<div class="container-fluid bg-white py-5 rounded mb-5">
+    <div class="container-fluid bg-white py-5 rounded mb-5">
         <div class="row">
             <div class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
                 <h3 class="fs-1 fw-bolder" style="color:black; font-family: Arial, sans-serif;">Agregar empresa</h3>
@@ -52,7 +52,7 @@
                     <input type="hidden" name="form_empresas" value="crud_empresas">
                     <input type="hidden" name="empresas_crud" value="create_empresa">
                     <input id="input_slider_img" class="m-0 p-0" type="file" name="imagen">
-                    <label class="col-12 m-0 p-2 d-flex justify-content-center align-items-center" for="input_slider_img" style="opacity: 100%; !important; border-radius: 26px; background-color: #000000;">Seleccionar archivo</label>
+                    <label class="col-12 m-0 p-2 d-flex justify-content-center align-items-center" for="input_slider_img" style="opacity: 100% !important; border-radius: 26px; background-color: #000000;">Seleccionar archivo</label>
                 </form>
             </div>
         </div>

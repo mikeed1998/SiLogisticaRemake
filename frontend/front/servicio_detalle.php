@@ -176,7 +176,7 @@
                             <div class="col-10 mx-auto">
                                 <div class="row">
                                     <div class="col-lg-4 col-12 px-0">
-                                        <a href="#/" class="btn btn-outline text-center w-100 py-3" style="background-color: #3567AC; color: #FFFFFF;">SOLICITAR</a>
+                                        <a href="Contacto" class="btn btn-outline text-center w-100 py-3" style="background-color: #3567AC; color: #FFFFFF;">SOLICITAR</a>
                                     </div>
                                 </div>
                             </div>

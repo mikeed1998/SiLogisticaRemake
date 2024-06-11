@@ -75,6 +75,33 @@
         case 101:
             include 'backend/widgets/editarajax.php';
         break;
+        case 102:
+            include 'frontend/front/mail.php';
+        break;
+        case 103:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/aviso_privacidad.php';
+        break;
+        case 104:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/metodos_pago.php';
+        break;
+        case 105:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/devoluciones.php';
+        break;
+        case 106:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/terminos_condiciones.php';
+        break;
+        case 107:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/garantias.php';
+        break;
+        case 108:
+            include 'frontend/front/layout.php';
+            include 'frontend/front/politicas/politicas_envio.php';
+        break;
         case 200:
             include 'frontend/admin/layout.php';
             include 'frontend/admin/index.php';

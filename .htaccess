@@ -19,6 +19,13 @@ RewriteRule ^Servicio_([0-9]+)$                 index.php?identificador=7&pagina
 RewriteRule ^editarajax$                        index.php?identificador=99
 RewriteRule ^Proxy$                             index.php?identificador=100
 RewriteRule ^EditarAJAX$                        index.php?identificador=101
+RewriteRule ^Mail$                              index.php?identificador=102
+RewriteRule ^Aviso_de_privacidad$               index.php?identificador=103
+RewriteRule ^Metodos_de_pago$                   index.php?identificador=104
+RewriteRule ^Devoluciones$                      index.php?identificador=105
+RewriteRule ^Terminos_y_condiciones$            index.php?identificador=106
+RewriteRule ^Garantias$                         index.php?identificador=107
+RewriteRule ^Politicas_de_envio$                index.php?identificador=108
 
 RewriteRule ^Login$                             index.php?identificador=50
 RewriteRule ^SignUp$                            index.php?identificador=51

@@ -1,9 +1,9 @@
 <?php
 
     session_start();
-
+    $admin_text = "";
     if (isset($_SESSION['admin_id'])) {
-        echo "admin";
+        $admin_text = "admin";
     }
 
     if (!isset($_SESSION['csrf_token'])) {
@@ -60,10 +60,18 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-3 fs-5 text-white fw-bolder">'.
-                                                        (($user == null) ?
-                                                            '<a class="nav-link text-center" href="Login">Iniciar sesión</a> ' 
-                                                        :
-                                                            '<a class="nav-link text-center" href="Dashboard">'.$user['name'].'</a> ' )
+
+                                                        (
+                                                            ($user == null) ?
+                                                                (($admin_text) ? '<a class="nav-link text-center border border-white rounded py-2" href="admin">Administrador</a>' : '<a class="nav-link text-center" href="Login">Iniciar sesión</a>')
+                                                            :
+                                                                '<a class="nav-link text-center" href="Dashboard">'.$user['name'].'</a> '
+                                                        )
+
+                                                        // (($user == null) ?
+                                                        //     '<a class="nav-link text-center" href="Login">Iniciar sesión</a> ' 
+                                                        // :
+                                                        //     '<a class="nav-link text-center" href="Dashboard">'.$user['name'].'</a> ' )
                                                          
                                                     
                                                         // @if (Route::has('login'))
@@ -163,7 +171,8 @@
                         </div>
                         <div class="row">
                             <div class="col-12 text-center py-3 display-4 text-white" style="background-color: #003867; border-top: 3px solid #639BE8;">
-                                RASTREAR GUÍA
+                                <button class="btn btn-outline display-4 text-white link-header"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 3rem;">RASTREAR GUÍA</button>
+                                
                             </div>
                         </div>
                         <div class="row" style="background-color: #003867; border-top: 3px solid #639BE8;">

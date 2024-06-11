@@ -57,6 +57,12 @@
                 border-top-left-radius: 2rem; 
                 border-bottom-left-radius: 2rem;
             }
+
+            .texto-nosotros {
+                height: 33rem; 
+                max-height: 33rem; 
+                overflow: auto;
+            }
         }
 
         @media(min-width: 576px) and (max-width: 992px) {
@@ -67,6 +73,12 @@
             .cont-imagen {
                 border-top-left-radius: 2rem; 
                 border-bottom-left-radius: 2rem;
+            }
+
+            .texto-nosotros {
+                height: 33rem; 
+                max-height: 33rem; 
+                overflow: auto;
             }
         }
 
@@ -82,6 +94,10 @@
 
             .cont-vision {
                 margin-top: -16rem;
+            }
+
+            .texto-nosotros {
+                
             }
         }
 
@@ -99,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col bg-white" style="height: 33rem; max-height: 33rem; overflow: auto;">
+                                <div class="col bg-white texto-nosotros">
                                     <div class="row">
                                         <div class="col-10 mx-auto">
                                             <div class="row">

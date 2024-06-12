@@ -48,6 +48,8 @@ RewriteRule ^admin_servicio_edit_([0-9]+)$      index.php?identificador=212&pagi
 RewriteRule ^admin_sliders$                     index.php?identificador=213
 RewriteRule ^admin_empresas$                    index.php?identificador=214
 RewriteRule ^admin_logic$                       index.php?identificador=215
+RewriteRule ^admin_faq_create$                  index.php?identificador=216
+RewriteRule ^admin_faq_edit_([0-9]+)$           index.php?identificador=217&pagina=admin_faq&id=$1 [L]
 
 # Permitir archivos .htaccess en subdirectorios
 Options +FollowSymLinks

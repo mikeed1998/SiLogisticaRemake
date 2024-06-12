@@ -179,6 +179,28 @@
         case 215:
             include 'backend/logic/logica.php';
         break;
+        case 216:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/faqs/create.php';
+        break;
+        case 217:
+            include 'frontend/admin/layout.php';
+            try {
+                $query = "SELECT * FROM faqs WHERE id = :id";
+                $stmt = $conexion->prepare($query);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    $faq = $stmt->fetch(PDO::FETCH_ASSOC);
+                    include 'frontend/admin/faqs/edit.php';
+                } else {
+                    echo "<p>Faq no encontrado.</p>";
+                }
+            } catch (PDOException $e) {
+                echo 'Error en la consulta: ' . $e->getMessage();
+            }
+        break;
         default:
             include 'frontend/front/layout.php';
             include 'frontend/front/home.php';

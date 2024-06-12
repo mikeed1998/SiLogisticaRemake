@@ -6,6 +6,15 @@
     $faqs = $result_faqs;
 ?>    
 
+<div class="row mb-4 px-2">
+        <div class="col-6 text-start">
+            <a href="admin" class="w-50 col col-md-2 btn btn-sm btn-dark mr-auto"><i class="fa fa-reply"></i> Regresar</a>
+        </div>
+        <div class="col-6 text-end">
+            <a href="admin_faq_create" class="w-50 col col-md-2 btn btn-sm btn-success text-white"><i class="fa fa-plus"></i> Agregar</a>
+        </div>
+    </div>
+
 <div class="accordion sortable" data-table="Faq" id="acordionfaqs">
     <?php foreach ($faqs as $f): ?>
         <div class="card" data-card="<?=$f['id']?>">
@@ -18,12 +27,12 @@
                 <div class="col-3">
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn btn-sm btn-info text-right w-100 rounded-0" data-toggle="modal" data-target="#editModal<?=$f['id']?>">
+                            <a href="admin_faq_edit_<?=$f['id']?>" class="btn btn-sm btn-info text-right w-100 rounded-0">
                                 <i class="bi bi-pencil-square fs-5"></i>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-sm btn-danger text-right w-100 rounded-0" data-toggle="modal" data-target="#deleteModal<?=$f['id']?>">
+                            <button class="btn btn-sm btn-danger text-right w-100 rounded-0" data-toggle="modal" data-target="#frameModalDel" data-id="<?=$f['id']?>">
                                 <i class="bi bi-trash fs-5"></i>
                             </button>
                         </div>
@@ -39,34 +48,6 @@
             </div>
         </div>
 
-        <!-- Modal de edición -->
-        <div class="modal fade" id="editModal<?=$f['id']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$f['id']?>" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel<?=$f['id']?>">Editar FAQ</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="admin_logic.php" method="post">
-                            <input type="hidden" name="form_type" value="edit_faq">
-                            <input type="hidden" name="faq_id" value="<?=$f['id']?>">
-                            <div class="form-group">
-                                <label for="pregunta<?=$f['id']?>">Pregunta</label>
-                                <input type="text" class="form-control" id="pregunta<?=$f['id']?>" name="pregunta" value="<?=$f['pregunta']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="respuesta<?=$f['id']?>">Respuesta</label>
-                                <textarea class="form-control" id="respuesta<?=$f['id']?>" name="respuesta" rows="3"><?=$f['respuesta']?></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Modal de eliminación -->
         <div class="modal fade" id="deleteModal<?=$f['id']?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?=$f['id']?>" aria-hidden="true">

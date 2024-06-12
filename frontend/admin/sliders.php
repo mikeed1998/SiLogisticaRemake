@@ -7,41 +7,41 @@
 ?>
     
     <style>
-    .file-upload input[type="file"] {
-        position: absolute;
-        left: -9999px;
-    }
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
 
-    .file-upload label {
-        display: inline-block;
-        background-color: #00000031;
-        color: #fff;
-        padding: 6px 12px;
-        cursor: pointer;
-        border-radius: 4px;
-        font-weight: normal;
-    }
+        .file-upload label {
+            display: inline-block;
+            background-color: #00000031;
+            color: #fff;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: normal;
+        }
 
-    .file-upload input[type="file"] + label:before {
-        content: "\f07b";
-        font-family: "Font Awesome 5 Free";
-        font-size: 16px;
-        margin-right: 5px;
-        transition: all 0.5s;
-    }
+        .file-upload input[type="file"] + label:before {
+            content: "\f07b";
+            font-family: "Font Awesome 5 Free";
+            font-size: 16px;
+            margin-right: 5px;
+            transition: all 0.5s;
+        }
 
-    .file-upload input[type="file"] + label {
-        transition: all 0.5s;
-    }
+        .file-upload input[type="file"] + label {
+            transition: all 0.5s;
+        }
 
-    .file-upload input[type="file"]:focus + label,
-    .file-upload input[type="file"] + label:hover {
-        backdrop-filter: blur(5px);
-        background-color: #41464a37;
-        opacity: 100%;
-        transition: all 0.5s;
-    }
-</style>
+        .file-upload input[type="file"]:focus + label,
+        .file-upload input[type="file"] + label:hover {
+            backdrop-filter: blur(5px);
+            background-color: #41464a37;
+            opacity: 100%;
+            transition: all 0.5s;
+        }
+    </style>
 
 <div class="container-fluid bg-white py-5 rounded mb-5">
     <div class="row">

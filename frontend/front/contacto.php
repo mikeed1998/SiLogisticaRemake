@@ -210,7 +210,13 @@
     // Mostrar notificación Toastr basada en los parámetros
     if (status === 'success') {
         toastr.success('El mensaje se envió correctamente.');
+        setTimeout(function() {
+            window.location.href = 'Contacto';
+        }, 2000);
     } else if (status === 'error') {
         toastr.error('Hubo un error al enviar el mensaje: ' + decodeURIComponent(message));
+        setTimeout(function() {
+            window.location.href = 'Contacto';
+        }, 2000);
     }
 </script>

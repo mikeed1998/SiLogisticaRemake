@@ -5,9 +5,8 @@
     <div class="col-12 col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<form action="" method="post">
-                    <input type="hidden" name="form_faqs" value="crud_faqs">
-                    <input type="hidden" name="faqs_crud" value="edit_faq">
+				<form action="admin_logic" method="post">
+					<input type="hidden" name="form_type" value="faqs_edit">
                     <input type="hidden" name="faq_id" value="<?=$faq['id']?>"> 
 					<div class="form-group">
 						<label for="pregunta">Pregunta</label>

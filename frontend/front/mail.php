@@ -11,6 +11,12 @@ require 'vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
+$sql_config = 'SELECT * FROM configuracions';
+$stmt_config = $conexion->prepare($sql_config);
+$stmt_config->execute();
+$result_config = $stmt_config->fetchAll(PDO::FETCH_ASSOC);
+$config = $result_config[0];
+  
 $tipo = $_POST['tipo'];
 $whatsapp = $_POST['whatsapp'];
 $email = $_POST['email'];
@@ -20,19 +26,22 @@ $empresa = $_POST['empresa'];
 
 try {
     //Server settings
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                   //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'mail.proyectoswozial.com';                     //Set the SMTP server to send through
+    $mail->Host       = $config['remitentehost'];               //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'testeolocal@proyectoswozial.com';                     //SMTP username
-    $mail->Password   = 'D(]$I6s7)vBV';                               //SMTP password
+    $mail->Username   = $config['remitente'];                   //SMTP username
+    $mail->Password   = $config['remitentepass'];               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Port       = $config['remitenteport'];               //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('testeolocal@proyectoswozial.com', 'Mailer');
-    $mail->addAddress('mikeed1998@gmail.com', 'Michael User');     //Add a recipient
-    $mail->addAddress('michaelwozial@gmail.com');               //Name is optional
+    $mail->setFrom($config['remitente'], 'silogisticaguerrero');
+    $mail->addAddress($config['destinatario'], 'silogisticaguerrero - Mensaje');    //Add a recipient
+    if($config['destinatario2']) {
+        $mail->addAddress($config['destinatario2']);                                //Name is optional
+    }
+    
     // $mail->addReplyTo('info@example.com', 'Information');
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');

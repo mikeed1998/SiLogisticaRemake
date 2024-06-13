@@ -27,6 +27,82 @@
         exit();        
     }
 
+    if(isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_create') {
+        $pregunta = $_POST['pregunta'];
+        $respuesta = $_POST['respuesta'];
+
+        $sql = "INSERT INTO faqs(pregunta, respuesta) VALUES (:pregunta, :respuesta)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':pregunta', $pregunta);
+        $stmt->bindParam(':respuesta', $respuesta);
+
+        if ($stmt->execute()) {
+            $_SESSION['toastr'] = [
+                'type' => 'success',
+                'message' => 'Pregunta añadida correctamente.'
+            ];
+        } else {
+            $_SESSION['toastr'] = [
+                'type' => 'error',
+                'message' => 'Error al añadir la pregunta.'
+            ];
+        }
+
+        header('Location: admin_faqs');
+        exit();        
+    }
+
+    if(isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_edit') {
+        $pregunta = $_POST['pregunta'];
+        $respuesta = $_POST['respuesta'];
+        $faq_id = $_POST['faq_id'];
+
+        $sql = "UPDATE faqs SET pregunta = :pregunta, respuesta = :respuesta WHERE id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':pregunta', $pregunta);
+        $stmt->bindParam(':respuesta', $respuesta);
+        $stmt->bindParam(':id', $faq_id);
+
+        if ($stmt->execute()) {
+            $_SESSION['toastr'] = [
+                'type' => 'success',
+                'message' => 'Pregunta actualizada correctamente.'
+            ];
+        } else {
+            $_SESSION['toastr'] = [
+                'type' => 'error',
+                'message' => 'Error al actualizar la pregunta.'
+            ];
+        }
+
+        header('Location: admin_faqs');
+        exit();        
+    }
+
+    if (isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_delete') {
+        $faq_id = $_POST['faq_id'];
+    
+        $sql = "DELETE FROM faqs WHERE id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $faq_id);
+    
+        if ($stmt->execute()) {
+            $response = [
+                'status' => 'success',
+                'message' => 'La FAQ ha sido eliminada.'
+            ];
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'Hubo un problema al eliminar la FAQ.'
+            ];
+        }
+    
+        echo json_encode($response);
+        exit();
+    }
+    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo_form_imagen']) && $_POST['tipo_form_imagen'] === 'imagen') {
         if ($_POST['tipo_imagen'] === 'formulario_imagen') {
             try {

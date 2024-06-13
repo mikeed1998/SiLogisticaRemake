@@ -7,13 +7,13 @@
 ?>    
 
 <div class="row mb-4 px-2">
-        <div class="col-6 text-start">
-            <a href="admin" class="w-50 col col-md-2 btn btn-sm btn-dark mr-auto"><i class="fa fa-reply"></i> Regresar</a>
-        </div>
-        <div class="col-6 text-end">
-            <a href="admin_faq_create" class="w-50 col col-md-2 btn btn-sm btn-success text-white"><i class="fa fa-plus"></i> Agregar</a>
-        </div>
+    <div class="col-6 text-start">
+        <a href="admin" class="w-50 col col-md-2 btn btn-sm btn-dark mr-auto"><i class="fa fa-reply"></i> Regresar</a>
     </div>
+    <div class="col-6 text-end">
+        <a href="admin_faq_create" class="w-50 col col-md-2 btn btn-sm btn-success text-white"><i class="fa fa-plus"></i> Agregar</a>
+    </div>
+</div>
 
 <div class="accordion sortable" data-table="Faq" id="acordionfaqs">
     <?php foreach ($faqs as $f): ?>
@@ -32,7 +32,7 @@
                             </a>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-sm btn-danger text-right w-100 rounded-0" data-toggle="modal" data-target="#frameModalDel" data-id="<?=$f['id']?>">
+                            <button class="btn btn-sm btn-danger text-right w-100 rounded-0" onclick="confirmDeletion(<?=$f['id']?>)">
                                 <i class="bi bi-trash fs-5"></i>
                             </button>
                         </div>
@@ -47,32 +47,60 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal de eliminación -->
-        <div class="modal fade" id="deleteModal<?=$f['id']?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?=$f['id']?>" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel<?=$f['id']?>">Eliminar FAQ</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Estás seguro de que deseas eliminar esta FAQ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="admin_logic.php" method="post">
-                            <input type="hidden" name="form_type" value="delete_faq">
-                            <input type="hidden" name="faq_id" value="<?=$f['id']?>">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     <?php endforeach; ?> 
 </div>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function confirmDeletion(faqId) {
+        Swal.fire({
+            title: '¿Estás seguro de que deseas eliminar esta FAQ?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'admin_logic',
+                    type: 'POST',
+                    data: {
+                        form_type: 'faqs_delete',
+                        faq_id: faqId
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Eliminado',
+                            'La FAQ ha sido eliminada.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Error',
+                            'Hubo un problema al eliminar la FAQ.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    <?php if (isset($_SESSION['toastr'])): ?>
+        var toastrType = "<?php echo $_SESSION['toastr']['type']; ?>";
+        var toastrMessage = "<?php echo $_SESSION['toastr']['message']; ?>";
+        toastr[toastrType](toastrMessage);
+        <?php unset($_SESSION['toastr']); ?>
+    <?php endif; ?>
+</script>

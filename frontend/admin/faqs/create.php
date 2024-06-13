@@ -6,8 +6,7 @@
 		<div class="card">
 			<div class="card-body">
 				<form action="admin_logic" method="POST">
-                    <input type="hidden" name="form_faqs" value="crud_faqs">
-                    <input type="hidden" name="faqs_crud" value="create_faq">
+                    <input type="hidden" name="form_type" value="faqs_create">
 					<div class="form-group">
 						<label for="pregunta">Pregunta</label>
 						<input type="text" name="pregunta" id="pregunta" class="form-control">

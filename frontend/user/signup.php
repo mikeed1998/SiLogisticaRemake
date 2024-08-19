@@ -93,7 +93,7 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
     </style>
 
 
-    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <h1 class="mt-5">Nueva cuenta</h1>  
     <span>ó <a href="Login">Inicia sesión</a></span>
@@ -104,10 +104,68 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
     
     <form action="SignUp" method="POST" class="mb-5">
         <input type="email" name="email" placeholder="Ingresa tu correo" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-        <input required type="text" name="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
-        <input required type="text" name="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+        <div class="password-container">
+            <input required type="password" name="password" id="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+            <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+        </div>
+        <div class="password-container">
+            <input required type="password" name="confirm_password" id="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+            <i class="fas fa-eye" id="toggleConfirmPassword" style="cursor: pointer;"></i>
+        </div>
+        <div id="passwordError" style="color: red; margin-top: -15px; margin-bottom: 20px;"></div> <!-- Contenedor para el mensaje de error -->
         <input type="submit" value="Crear cuenta">
     </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const passwordError = document.getElementById('passwordError');
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+        function validatePasswords() {
+            const passwordValue = password.value;
+            const confirmPasswordValue = confirmPassword.value;
+            const passwordPattern = /^[A-Za-z\d]{8,}$/;
+
+            if (!passwordPattern.test(passwordValue)) {
+                passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres alfanuméricos.';
+                return false;
+            } else if (passwordValue !== confirmPasswordValue) {
+                passwordError.textContent = 'Las contraseñas no coinciden.';
+                return false;
+            } else {
+                passwordError.textContent = '';
+                return true;
+            }
+        }
+
+        password.addEventListener('input', validatePasswords);
+        confirmPassword.addEventListener('input', validatePasswords);
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.type === 'password' ? 'text' : 'password';
+            password.type = type;
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        toggleConfirmPassword.addEventListener('click', function () {
+            const type = confirmPassword.type === 'password' ? 'text' : 'password';
+            confirmPassword.type = type;
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            if (!validatePasswords()) {
+                event.preventDefault(); // Evita que se envíe el formulario si hay un error
+            }
+        });
+    });
+</script>
+
+
 
 <?=$footer;?>
 

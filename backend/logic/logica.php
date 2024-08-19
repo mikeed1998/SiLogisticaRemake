@@ -1,7 +1,65 @@
 <?php
 
+
     require 'backend/database/conexion.php';
 
+    //*************************************************************************************************************************************************
+    //  CREAR LINKS
+    //*************************************************************************************************************************************************
+    if(isset($_POST['form_type']) && $_POST['form_type'] == 'links_create') {
+        $titulo = $_POST['titulo'];
+        $link = $_POST['link'];
+
+        $sql = "INSERT INTO links(titulo, link) VALUES (:titulo, :link)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':link', $link);
+
+        if ($stmt->execute()) {
+            $_SESSION['toastr'] = [
+                'type' => 'success',
+                'message' => 'Pregunta añadida correctamente.'
+            ];
+        } else {
+            $_SESSION['toastr'] = [
+                'type' => 'error',
+                'message' => 'Error al añadir la pregunta.'
+            ];
+        }
+
+        header('Location: admin_links');
+        exit();        
+    }
+
+    //*************************************************************************************************************************************************
+    //  ELIMINAR LINKS
+    //*************************************************************************************************************************************************
+    if (isset($_POST['form_type']) && $_POST['form_type'] == 'links_delete') {
+        $link_id = $_POST['link_id'];
+    
+        $sql = "DELETE FROM links WHERE id = :link_id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':link_id', $link_id);
+    
+        if ($stmt->execute()) {
+            $_SESSION['toastr'] = [
+                'type' => 'success',
+                'message' => 'Enlace eliminado correctamente.'
+            ];
+        } else {
+            $_SESSION['toastr'] = [
+                'type' => 'error',
+                'message' => 'Error al eliminar el enlace.'
+            ];
+        }
+    
+        header('Location: admin_links');
+        exit();
+    }
+
+    //*************************************************************************************************************************************************
+    //  UPDATE POLITICAS
+    //*************************************************************************************************************************************************
     if(isset($_POST['form_type']) && $_POST['form_type'] == 'politicas') {
         $id = $_POST['politica_id'];
         $descripcion = $_POST['descripcion'];
@@ -27,6 +85,9 @@
         exit();        
     }
 
+    //*************************************************************************************************************************************************
+    //  CREATE FAQS
+    //*************************************************************************************************************************************************
     if(isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_create') {
         $pregunta = $_POST['pregunta'];
         $respuesta = $_POST['respuesta'];
@@ -52,6 +113,9 @@
         exit();        
     }
 
+    //*************************************************************************************************************************************************
+    //  UPDATE FAQS
+    //*************************************************************************************************************************************************
     if(isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_edit') {
         $pregunta = $_POST['pregunta'];
         $respuesta = $_POST['respuesta'];
@@ -79,6 +143,9 @@
         exit();        
     }
 
+    //*************************************************************************************************************************************************
+    //  DELETE FAQS
+    //*************************************************************************************************************************************************
     if (isset($_POST['form_type']) && $_POST['form_type'] == 'faqs_delete') {
         $faq_id = $_POST['faq_id'];
     
@@ -102,7 +169,9 @@
         exit();
     }
     
-
+    //*************************************************************************************************************************************************
+    //  ACTUALIZAR IMAGENES ESTÁTICAS
+    //*************************************************************************************************************************************************
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo_form_imagen']) && $_POST['tipo_form_imagen'] === 'imagen') {
         if ($_POST['tipo_imagen'] === 'formulario_imagen') {
             try {
@@ -162,10 +231,10 @@
             echo '<script>alert("Tipo de imagen no válido."); window.history.back();</script>';
         }
     }
-    // } else {
-    //     echo '<script>alert("Solicitud no válida."); window.history.back();</script>';
-    // }
 
+    //*************************************************************************************************************************************************
+    //  CRUD - SERVICIOS
+    //*************************************************************************************************************************************************
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_servicios']) && $_POST['form_servicios'] == 'crud_servicios') {
         if ($_POST['servicios_crud'] == 'create_servicio') {
             $titulo = $_POST['servicio_titulo'];
@@ -334,6 +403,9 @@
         }
     } 
 
+    //*************************************************************************************************************************************************
+    //  CRUD - SLIDERS
+    //*************************************************************************************************************************************************
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_sliders']) && $_POST['form_sliders'] == 'crud_sliders') {
         if ($_POST['sliders_crud'] == 'create_slider') {
             $slider = $_FILES['imagen'];
@@ -410,6 +482,9 @@
         }
     }
     
+    //*************************************************************************************************************************************************
+    //  CRUD - EMPRESAS
+    //*************************************************************************************************************************************************
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_empresas']) && $_POST['form_empresas'] == 'crud_empresas') {
         if ($_POST['empresas_crud'] == 'create_empresa') {
             $empresa = $_FILES['imagen'];
@@ -486,79 +561,5 @@
         }
     }
 
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_empresas']) && $_POST['form_empresas'] == 'crud_empresas') {
-    //     if($_POST['empresas_crud'] == 'create_empresa') {
-    //         // var_dump('CREATE SLIDER');
-    //         $empresa = $_FILES['imagen'];
     
-    //         if (isset($empresa) && $empresa['error'] === UPLOAD_ERR_OK) {
-    //             $empresaTmpPath = $empresa['tmp_name'];
-    //             $empresaName = $empresa['name'];
-    //             $empresaSize = $empresa['size'];
-    //             $empresaType = $empresa['type'];
-    //             $empresaNameCmps = explode(".", $empresaName);
-    //             $empresaExtension = strtolower(end($empresaNameCmps));
     
-    //             // Generar un nombre de archivo aleatorio
-    //             $newFileName = bin2hex(random_bytes(15)) . '.' . $empresaExtension;
-    
-    //             // Especificar el directorio donde se guardará el archivo
-    //             $uploadFileDir = 'public/img/photos/empresas/';
-    //             $dest_path = $uploadFileDir . $newFileName;
-    
-    //             try {
-    //                 // Mover el archivo al directorio especificado
-    //                 if (move_uploaded_file($empresaTmpPath, $dest_path)) {
-    //                     // Insertar el nuevo servicio en la base de datos
-    //                     $query = $conexion->prepare("INSERT INTO empresas (imagen) VALUES (:imagen)");
-    //                     $query->bindParam(':imagen', $newFileName, PDO::PARAM_STR);
-    //                     $query->execute();
-    
-    //                     // Redirigir con un mensaje de éxito
-    //                     echo '<script>alert("Imagen agregada exitosamente"); window.location.href="admin_empresas";</script>';
-    //                 } else {
-    //                     echo '<script>alert("Hubo un error al mover el archivo subido."); window.history.back();</script>';
-    //                 }
-    //             } catch (Exception $e) {
-    //                 echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
-    //             }
-    //         } else {
-    //             echo '<script>alert("No se subió ningún archivo o hubo un error en la subida."); window.history.back();</script>';
-    //         }
-    //     } else if($_POST['empresas_crud'] == 'delete_empresa') {
-    //         // var_dump('DELETE SLIDER');
-    //         $id = intval($_POST['id_slider']);
-            
-    //         try {
-    //             $conexion->beginTransaction();
-    
-    //             $query = $conexion->prepare("SELECT imagen FROM empresas WHERE id = :id");
-    //             $query->bindParam(':id', $id, PDO::PARAM_INT);
-    //             $query->execute();
-    //             $slider = $query->fetch(PDO::FETCH_ASSOC);
-    
-    //             if ($slider) {
-    //                 $uploadFileDir = 'public/img/photos/empresas/';
-    //                 $filePath = $uploadFileDir . $slider['imagen'];
-    //                 if (file_exists($filePath)) {
-    //                     unlink($filePath);
-    //                 }
-    
-    //                 $query = $conexion->prepare("DELETE FROM empresas WHERE id = :id");
-    //                 $query->bindParam(':id', $id, PDO::PARAM_INT);
-    //                 $query->execute();
-    
-    //                 $conexion->commit();
-    
-    //                 echo '<script>alert("Empresa eliminado exitosamente"); window.location.href="admin_empresas";</script>';
-    //             } else {
-    //                 throw new Exception("Empresa no encontrado");
-    //             }
-    //         } catch (Exception $e) {
-    //             $conexion->rollBack();
-    //             echo '<script>alert("Ocurrió un error: ' . $e->getMessage() . '"); window.history.back();</script>';
-    //         }
-    //     }
-    // }
-
-

@@ -19,6 +19,20 @@
         unset($_SESSION['dashboard_message']); // Borra el mensaje después de mostrarlo
     }
 
+    $sql_links = 'SELECT * FROM links';
+    $stmt_links = $conexion->prepare($sql_links);
+    $stmt_links->execute();
+    $result_links = $stmt_links->fetchAll(PDO::FETCH_ASSOC);
+    $links = $result_links;
+
+    $sql = 'SELECT * FROM links';
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $links = $result;
+    
+    
+
 ?>
 
 <?=$headGNRL;?>
@@ -52,18 +66,18 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 border px-0">
-                                    <a href="#/" class="btn btn-dark w-100 rounded-0">OPCIÓN</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 border px-0">
-                                    <a href="#/" class="btn btn-dark w-100 rounded-0">OPCIÓN</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 border px-0">
-                                    <a href="#/" class="btn btn-dark w-100 rounded-0">OPCIÓN</a>
+                                <div class="col">
+                                    <?php
+                                        foreach($links as $link) {
+                                            echo '
+                                                <div class="row">
+                                                    <div class="col-12 border px-0">
+                                                        <a href="'. $link['link'] .'" class="btn btn-dark w-100 rounded-0">'.$link['titulo'].'</a>
+                                                    </div>
+                                                </div>
+                                            ';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <div class="row">

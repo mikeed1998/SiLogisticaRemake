@@ -201,6 +201,18 @@
                 echo 'Error en la consulta: ' . $e->getMessage();
             }
         break;
+        case 218:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/links.php';
+        break;
+        case 219:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/links_create.php';
+        break;
+        case 220:
+            include 'frontend/admin/layout.php';
+            include 'frontend/admin/links_delete.php';
+        break;
         default:
             include 'frontend/front/layout.php';
             include 'frontend/front/home.php';

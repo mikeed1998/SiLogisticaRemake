@@ -50,6 +50,9 @@ RewriteRule ^admin_empresas$                    index.php?identificador=214
 RewriteRule ^admin_logic$                       index.php?identificador=215
 RewriteRule ^admin_faq_create$                  index.php?identificador=216
 RewriteRule ^admin_faq_edit_([0-9]+)$           index.php?identificador=217&pagina=admin_faq&id=$1 [L]
+RewriteRule ^admin_links$                       index.php?identificador=218
+RewriteRule ^admin_links_create$                index.php?identificador=219
+RewriteRule ^admin_links_delete$                index.php?identificador=220
 
 # Permitir archivos .htaccess en subdirectorios
 Options +FollowSymLinks
@@ -59,16 +62,16 @@ AddType application/x-httpd-php .php
 
 # Protección contra ataques de fuerza bruta
 <IfModule mod_php>
-  php_flag register_globals off
-  php_flag magic_quotes_gpc off
-  php_flag session.use_cookies on
-  php_flag session.use_only_cookies on
-  php_flag session.cookie_httponly on
-  php_value session.gc_maxlifetime 1440
+    php_flag register_globals off
+    php_flag magic_quotes_gpc off
+    php_flag session.use_cookies on
+    php_flag session.use_only_cookies on
+    php_flag session.cookie_httponly on
+    php_value session.gc_maxlifetime 1440
 </IfModule>
 
 # Denegar el acceso a archivos sensibles
 <FilesMatch "(\.bak|\.config|\.git|\.svn|\.DS_Store)$">
-  Order deny,allow
-  Deny from all
+    Order deny,allow
+    Deny from all
 </FilesMatch>

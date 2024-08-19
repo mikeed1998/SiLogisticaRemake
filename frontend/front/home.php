@@ -625,25 +625,25 @@
         });
     </script>
 
-<script>
-    // Leer los parámetros de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status');
-    const message = urlParams.get('message');
+    <script>
+        // Leer los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const message = urlParams.get('message');
 
-    // Mostrar notificación Toastr basada en los parámetros
-    if (status === 'success') {
-        toastr.success('El mensaje se envió correctamente.');
-        setTimeout(function() {
-            window.location.href = 'Home';
-        }, 2000);
-    } else if (status === 'error') {
-        toastr.error('Hubo un error al enviar el mensaje: ' + decodeURIComponent(message));
-        setTimeout(function() {
-            window.location.href = 'Home';
-        }, 2000);
-    }
-</script>
+        // Mostrar notificación Toastr basada en los parámetros
+        if (status === 'success') {
+            toastr.success('El mensaje se envió correctamente.');
+            setTimeout(function() {
+                window.location.href = 'Home';
+            }, 2000);
+        } else if (status === 'error') {
+            toastr.error('Hubo un error al enviar el mensaje: ' + decodeURIComponent(message));
+            setTimeout(function() {
+                window.location.href = 'Home';
+            }, 2000);
+        }
+    </script>
 
 <?=$footer;?>
 

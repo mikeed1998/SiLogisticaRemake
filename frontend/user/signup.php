@@ -104,8 +104,8 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
     
     <form action="SignUp" method="POST" class="mb-5">
         <input type="email" name="email" placeholder="Ingresa tu correo" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-        <input required type="password" name="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
-        <input required type="password" name="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+        <input required type="text" name="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+        <input required type="text" name="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
         <input type="submit" value="Crear cuenta">
     </form>
 

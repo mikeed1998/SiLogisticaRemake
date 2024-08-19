@@ -14,10 +14,10 @@
       
         // Configurar el modo de error en PDO::ERRMODE_EXCEPTION para manejar excepciones
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      
-        // ¡Conexión establecida! Puedes realizar tus operaciones de base de datos aquí
-      
-      } catch (PDOException $e) {
+            
+    } catch (PDOException $e) {
         // Manejar los errores de conexión
         echo 'Error al conectar a la base de datos: ' . $e->getMessage();
-      }
+    }
+
+

@@ -90,7 +90,7 @@
                                 <div class="col py-2 text-center fs-5">
                                     <div class="row">
                                         <div class="col-12">
-                                            <img src="public/img/photos/usuarios/<?=$user['imagen']?>" alt="" class="img-fluid img-profile">
+                                            <img src="public/img/photos/usuarios/<?=$user['imagen']?>" alt="" class="img-fluid img-profile border border-dark">
                                         </div>
                                         <div class="col-12">
                                             <form id="uploadForm" action="admin_logic" method="POST" enctype="multipart/form-data">

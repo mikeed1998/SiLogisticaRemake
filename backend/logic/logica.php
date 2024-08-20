@@ -3,6 +3,86 @@
 
     require 'backend/database/conexion.php';
 
+    
+    //*************************************************************************************************************************************************
+    //  ACTUALIZAR CONTRASEÑA DE USUARIO
+    //*************************************************************************************************************************************************
+    if (isset($_POST['form_type']) && $_POST['form_type'] == 'update_password') {
+        $userId = $_POST['user_id'];
+        $newPassword = $_POST['pass_u'];
+        $confirmPassword = $_POST['passc_u'];
+    
+        // Verificar que las contraseñas coinciden
+        if ($newPassword === $confirmPassword) {
+            // Hashear la nueva contraseña
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+    
+            // Actualizar la contraseña en la base de datos
+            $sql = 'UPDATE users SET password = :password WHERE id = :id';
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':id', $userId);
+    
+            if ($stmt->execute()) {
+                $response = ['success' => true, 'message' => 'Contraseña actualizada correctamente.'];
+            } else {
+                $response = ['success' => false, 'message' => 'Error al actualizar la contraseña.'];
+            }
+        } else {
+            $response = ['success' => false, 'message' => 'Las contraseñas no coinciden.'];
+        }
+    
+        // Devolver la respuesta en formato JSON
+        echo json_encode($response);
+        exit();
+    }
+    
+    
+    
+
+    //*************************************************************************************************************************************************
+    //  CAMBIAR FOTO DE PERFIL
+    //*************************************************************************************************************************************************
+    if (isset($_POST['form_type']) && $_POST['form_type'] == 'update_img_perfil') {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['image']['tmp_name'];
+            $fileName = $_FILES['image']['name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileType = $_FILES['image']['type'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+            $id_user = $_POST['user_id'];
+    
+            $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                $uploadFileDir = 'public/img/photos/usuarios/';
+                $dest_path = $uploadFileDir . $fileName;
+    
+                if(move_uploaded_file($fileTmpPath, $dest_path)) {
+                    $sql = 'UPDATE users SET imagen = :img WHERE id = :id';
+                    $stmt = $conexion->prepare($sql);
+                    $stmt->bindParam(':img', $fileName);
+                    $stmt->bindParam(':id', $id_user);
+    
+                    if ($stmt->execute()) {
+                        $message = "Imagen de perfil actualizada correctamente";
+                    } else {
+                        $message = "Error al actualizar la imagen en la base de datos";
+                    }
+                } else {
+                    $message = "Hubo un error moviendo el archivo al directorio de subida.";
+                }
+            } else {
+                $message = "Tipo de archivo no permitido.";
+            }
+        } else {
+            $message = "Hubo un error al subir el archivo.";
+        }
+    
+        header('Location: Dashboard');
+        exit();
+    }    
+
     //*************************************************************************************************************************************************
     //  CREAR LINKS
     //*************************************************************************************************************************************************

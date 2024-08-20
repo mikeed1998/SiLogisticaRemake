@@ -1,5 +1,5 @@
 <?php
-    ob_start(); // Start output buffering
+    ob_start(); 
 
     // Include general and header content
     echo $headGNRL;
@@ -10,12 +10,12 @@
 
     if (isset($_SESSION['admin_id'])) {
         header('Location: admin');
-        exit(); // Make sure to exit after header redirection
+        exit();
     }
 
     if (isset($_SESSION['user_id'])) {
         header('Location: Dashboard');
-        exit(); // Make sure to exit after header redirection
+        exit();
     }
 
     $message = '';
@@ -30,7 +30,7 @@
         if ($results && password_verify($_POST['password'], $results['password']) && $results['role_as'] == 0) {
             $_SESSION['user_id'] = $results['id'];
             header('Location: Dashboard');
-            exit(); // Make sure to exit after header redirection
+            exit();
         } else {
             $message = 'Datos incorrectos o la cuenta no existe';
         }
@@ -98,6 +98,6 @@
 </form>
 
 <?php
-echo $footer;
-ob_end_flush(); // End output buffering and flush output
+    echo $footer;
+    ob_end_flush();
 ?>

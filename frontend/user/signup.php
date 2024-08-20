@@ -90,6 +90,33 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
             text-decoration: none;
             color: #333;
         }
+
+        /* Estilo para el contenedor de la contraseña */
+.password-container {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el input y el ícono */
+    width: 520px;
+    margin: 20px auto;
+    position: relative; /* Asegura que el ícono esté correctamente alineado dentro del contenedor */
+}
+
+/* Ajusta el ancho del campo de entrada para dejar espacio para el ícono */
+.password-container input[type="password"] {
+    flex-grow: 1;
+    padding-right: 40px; /* Deja espacio para el ícono dentro del input */
+}
+
+/* Estilo para el ícono del ojo */
+.password-container .fa-eye,
+.password-container .fa-eye-slash {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+}
+
+
+
     </style>
 
 
@@ -103,18 +130,21 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
     <?php endif; ?>
     
     <form action="SignUp" method="POST" class="mb-5">
-        <input type="email" name="email" placeholder="Ingresa tu correo" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-        <div class="password-container">
-            <input required type="password" name="password" id="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
-            <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
-        </div>
-        <div class="password-container">
-            <input required type="password" name="confirm_password" id="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
-            <i class="fas fa-eye" id="toggleConfirmPassword" style="cursor: pointer;"></i>
-        </div>
-        <div id="passwordError" style="color: red; margin-top: -15px; margin-bottom: 20px;"></div> <!-- Contenedor para el mensaje de error -->
-        <input type="submit" value="Crear cuenta">
-    </form>
+    <input type="email" name="email" placeholder="Ingresa tu correo" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+    
+    <div class="password-container position-relative">
+        <input required type="password" name="password" id="password" placeholder="Ingresa tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+        <i class="fas fa-eye" id="togglePassword"></i>
+    </div>
+    
+    <div class="password-container position-relative">
+        <input required type="password" name="confirm_password" id="confirm_password" placeholder="Confirma tu contraseña" pattern="^[A-Za-z\d]{8,}$">
+        <i class="fas fa-eye" id="toggleConfirmPassword"></i>
+    </div>
+
+    <div id="passwordError" style="color: red; margin-top: -15px; margin-bottom: 20px;"></div>
+    <input type="submit" value="Crear cuenta">
+</form>
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
